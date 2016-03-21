@@ -1,0 +1,62 @@
+using UnityEngine;
+using System.Collections;
+
+public class Move : MonoBehaviour {
+	public float movementSpeed = 10; 
+	public float xmove = 1;
+	public Rigidbody phys;
+	public float turnSpeed;
+
+	public float smooth = 2.0F;
+	public float tiltAngle = 30.0F;
+	public float speed = 10;
+
+	public float distance = 1;
+
+	public float maxSpeed = 30;
+	public float acceleration = 2;
+
+
+	void Start(){ 
+		GetComponent<Renderer> ().material.color = new Color (0.5f, 0, 0);
+		phys = GetComponent<Rigidbody> ();
+		transform.rotation = Quaternion.identity;
+
+	}
+	IEnumerator MoveRightCoRo() {
+		Vector3 newVelocity = new Vector3 (movementSpeed, 0);
+		phys.velocity = newVelocity;
+		yield return new WaitForSeconds(0.5f);
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
+	}
+	IEnumerator MoveLeftCoRo() {
+		float move = movementSpeed*-1.0f;
+		Vector3 newVelocity = new Vector3 (move, 0);
+		phys.velocity = newVelocity;
+		yield return new WaitForSeconds(0.5f);
+		GetComponent<Rigidbody>().velocity = Vector3.zero;
+	}
+
+			
+
+	void Update() {
+		float ye = phys.velocity.y;
+		float x = phys.velocity.x;
+		Vector3 newVelocity = new Vector3 (x, ye, movementSpeed);
+		phys.velocity = newVelocity;
+
+
+		if(Input.GetKeyDown(KeyCode.Space)){
+			if(speed < maxSpeed){
+				GetComponent<Rigidbody>().AddForce(transform.up * speed);
+			}
+		}
+
+
+		if (Input.GetKeyDown (KeyCode.RightArrow )) {
+			if(speed < maxSpeed){
+				GetComponent<Rigidbody>().position.transform.Vector3(1,0,0) (deltaTime .Time);
+			}
+			                                  }
+	}
+}
